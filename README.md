@@ -28,7 +28,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Changelog to README.md.
 
-## [0.0.0] - 2016-04-26
+## [0.0.0] - 2016-05-26
 ### Added
 - main.rb - pulls data from site and prints all info out ( not sorted )
 - README.md as placeholder
