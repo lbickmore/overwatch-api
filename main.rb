@@ -3,30 +3,46 @@ require 'nokogiri'
 require 'openssl'
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-user=ARGV[0]
-uid=ARGV[1]
+sys_type=ARGV[0]
+gtag=ARGV[1]
+gtag_id=ARGV[2]
 
-if user.nil? || uid.nil?
-  abort("ABORT.. Missing info\nUsage: ruby script.rb <GamerTag> <TagReferenceNumber>")
+
+if gtag.nil? || sys_type.nil?
+  abort("ABORT.. Missing info\nUsage: ruby script.rb <PC/PS4/XBOX> <GamerTag> <BattleTagReferenceNumber>")
 end
-page = HTTParty.get("https://playoverwatch.com/en-us/career/pc/us/#{user}-#{uid}")
+
+if sys_type.downcase.strip == 'pc' && !gtag_id.nil?
+  page = HTTParty.get("https://playoverwatch.com/en-us/career/pc/us/#{gtag}-#{gtag_id}")
+else
+  if sys_type.downcase.strip == 'ps4'
+    page = HTTParty.get("https://playoverwatch.com/en-us/career/psn/#{gtag}")
+  else
+    if sys_type.downcase.strip == 'xbox'
+      page = HTTParty.get("https://playoverwatch.com/en-us/career/xbl/#{gtag}")
+    else
+      abort("Invalid Input\nUsage: ruby script.rb <PC/PS4/XBOX> <GamerTag> <BattleTagReferenceNumber>")
+    end
+  end
+end
+
 doc = Nokogiri::HTML(page)
 
-# Get catagories
-catagories = []
+# Get categories
+categories = []
 doc.xpath('//*[@id="stats-section"]/div/select/option').each do |i|
-  catagories.push(i.text)
+  categories.push(i.text)
 end
+
 # Create Hash structure for data
 data = Hash.new()
-catagories.each do |category|
+categories.each do |category|
   data[category]={}
 end
 
 # Crawl through data and add to structure!
-catagories.each_with_index do |category, i|
+categories.each_with_index do |category, i|
   doc.xpath('//*[@id="stats-section"]/div/div').children[i].xpath('div/div/table/tbody').each do |item|
-    puts item.class
     item.children.children.children.each_slice(2).to_a.each do |input|
       data[category][input[0].text] = input[1].text
     end
@@ -42,7 +58,7 @@ data.each do |category|
 end
 
 # Write to file
-File.open("#{user}.csv",'w') do |file|
+File.open("#{gtag}.csv",'w') do |file|
   output.each do |row|
     file.write(row)
     file.write("\n")
