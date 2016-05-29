@@ -7,7 +7,8 @@ Or maybe the [Style Guide](#style-rules)?
 
 
 ## Completed Features
- * Nothing :(
+ * Command line tool to pull data for any user given their user information and system.
+   Ex: `main.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
  * Nothing :(
  * Nothing :(
 
@@ -24,6 +25,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.2] - 2016-05-28
+### Added
+- (finished) script that can pull data for any user.
+- 
 ## [0.0.1] - 2016-05-27
 ### Added
 - Changelog to README.md.
