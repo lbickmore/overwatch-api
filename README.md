@@ -23,6 +23,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Command Line only file (cli.rb) for testing.
+
+### Changed
+- main.rb has a get_stats function.
 
 ## [0.0.2] - 2016-05-28
 ### Added
