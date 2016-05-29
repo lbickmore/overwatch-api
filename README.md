@@ -6,10 +6,11 @@ I can't think of anything else you could want from me, if you're still reading t
 
 ## To Do
  * Convert into REST API or something akin to that.
+ * Grab player level and add to a player stats key in the players data object
 
 ## Completed Features
  * Command line tool to pull data for any user given their user information and system.  
-   Ex: `main.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
+   Ex: `cli.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
 
 
 ## Description
@@ -23,6 +24,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.3] - 2016-05-28
 ### Added
 - cli.rb - Command Line only tool for testing.
 
