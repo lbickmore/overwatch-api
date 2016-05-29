@@ -1,16 +1,15 @@
-# Overwatch API  
+# Unofficial Overwatch API  
 Looking for the [Change Log](#change-log)?  
 Or maybe the [Style Guide](#style-rules)?  
-**Note**: Most links are currently broken. Lol
-## To Do
- * Everything
+[Trello board](https://trello.com/b/t9jG9N3F/overwatch-api)?  
+I can't think of anything else you could want from me, if you're still reading this hit me up on [twitter](https://twitter.com/blueshoesyes) I guess <3
 
+## To Do
+ * Convert into REST API or something akin to that.
 
 ## Completed Features
- * Command line tool to pull data for any user given their user information and system.
+ * Command line tool to pull data for any user given their user information and system.  
    Ex: `main.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
- * Nothing :(
- * Nothing :(
 
 
 ## Description
@@ -28,7 +27,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.0.2] - 2016-05-28
 ### Added
 - (finished) script that can pull data for any user.
-- 
+
 ## [0.0.1] - 2016-05-27
 ### Added
 - Changelog to README.md.
