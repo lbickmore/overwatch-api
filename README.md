@@ -25,6 +25,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [0.0.4] - 2016-05-31
+### Added
+- `battle_net_id` function to main.rb
+
+### Changed
+- `get_stats` function in main.rb to account for `battle_net_id`
+
 ## [0.0.3] - 2016-05-28
 ### Added
 - cli.rb - Command Line only tool for testing.

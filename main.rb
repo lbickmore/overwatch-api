@@ -5,33 +5,50 @@ require 'redis'
 
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-sys_type=ARGV[0]
-gtag=ARGV[1]
-gtag_id=ARGV[2]
-
-def get_stats(sys_type,gtag,gtag_id)
-  redis = Redis.new
-
-  if gtag.nil? || sys_type.nil?
-    abort("ABORT.. Missing info\nUsage: ruby script.rb <PC/PS4/XBOX> <GamerTag> <BattleTagReferenceNumber>")
-  end
-  if sys_type.downcase.strip == 'pc' && !gtag_id.nil?
-    page = HTTParty.get("https://playoverwatch.com/en-us/career/pc/us/#{gtag}-#{gtag_id}")
-    bnet_id= "#{gtag}##{gtag_id}"
+def battle_net_id(id)
+  id = id.strip
+  if id.include? '#'
+    # Check for PC user
+    x = id.split('#')
+    page = HTTParty.get("https://playoverwatch.com/en-us/career/pc/us/#{x[0]}-#{x[1]}")
+    pc = Nokogiri::HTML(page)
+    if !pc.inner_html.include? "Page Not Found"
+      return id
+    end
   else
-    if sys_type.downcase.strip == 'ps4'
-      page = HTTParty.get("https://playoverwatch.com/en-us/career/psn/#{gtag}")
-      bnet_id= "#{gtag}#ps4"
-    else
-      if sys_type.downcase.strip == 'xbox'
-        page = HTTParty.get("https://playoverwatch.com/en-us/career/xbl/#{gtag}")
-        bnet_id= "#{gtag}#xbox"
-      else
-        abort("Invalid Input\nUsage: ruby script.rb <PC/PS4/XBOX> <GamerTag> <BattleTagReferenceNumber>")
+    # Check for Playstation Network user
+    page = HTTParty.get("https://playoverwatch.com/en-us/career/psn/#{id}")
+    psn = Nokogiri::HTML(page)
+    if !psn.inner_html.include? "Page Not Found"
+      return id + '#psn'
+    end
+    if psn.inner_html.include? "Page Not Found"
+      # Check for Xbox Live user
+      page = HTTParty.get("https://playoverwatch.com/en-us/career/xbl/#{id}")
+      xbl = Nokogiri::HTML(page)
+      if !xbl.inner_html.include? "Page Not Found"
+        return id + '#xbl'
       end
     end
+    return 'No User Found'
   end
+end
 
+
+def get_stats(bnet_id)
+  #Usage: ruby script.rb <GamerTag or Battlenet ID>"
+  if bnet_id == 'No User Found'
+    puts bnet_id
+    return bnet_id
+  end
+  redis = Redis.new
+  #redis = Redis.new(:url => 'redis://IPHERE')
+  bnet_arr = bnet_id.split('#')
+  if !/\A\d+\z/.match(bnet_arr[1]) #if not a number
+    page = HTTParty.get("https://playoverwatch.com/en-us/career/#{bnet_arr[1]}/#{bnet_arr[0]}")
+  else
+    page = HTTParty.get("https://playoverwatch.com/en-us/career/pc/us/#{bnet_arr[0]}-#{bnet_arr[1]}")
+  end
 
   doc = Nokogiri::HTML(page)
 
@@ -58,4 +75,4 @@ def get_stats(sys_type,gtag,gtag_id)
   redis.set bnet_id, data.to_json
 end
 
-get_stats(sys_type,gtag,gtag_id)
+get_stats(battle_net_id(ARGV[0]))
