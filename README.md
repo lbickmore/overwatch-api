@@ -7,11 +7,11 @@ I can't think of anything else you could want from me, if you're still reading t
 ## To Do
  * Convert into REST API or something akin to that.
  * Grab player level and add to a player stats key in the players data object
- * (Maybe) Don't require users to input their system_type. Determine that based on lack of battlenet id number and return a choice between xbox and ps4.
 
 ## Completed Features
  * Command line tool to pull data for any user given their user information and system.  
    Ex: `cli.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
+ * system_type no longer required! Input is determined based on lack of battlenet ID #. At the moment this will return the first name that matches Playstation then Xbox. Potential further work required.
 
 
 ## Description
@@ -26,9 +26,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [0.0.5] - 2016-06-01
+## [0.0.5] - 2016-06-03
 ### Added
--
+- server.rb - sinatra server for http api access.
+- Proper `get_stats` function to grab stats from the database and return a JSON string.
+- `data_dump` function to return entire database to JSON string.
+- `in_database?` function to check for user id's in the server already.
+
+### Changed
+- `get_stats` function name to `crawl_stats`
+- All redis calls in functions are recycled calls of a global variable vs declaring the same server each time.
+
+### Fixed
+- Unicode variable names to plain ASCII characters for the sake of easy API usage. 
 
 ## [0.0.4] - 2016-05-31
 ### Added
