@@ -1,3 +1,7 @@
+$redis_pass = ARGV[0]
+if $redis_pass.nil?
+  abort('Usage: main.rb <Redis Password>')
+end
 require 'sinatra'
 require './main.rb'
 
@@ -15,9 +19,6 @@ get '/get_stats' do
   end
   get_stats(bnet_id).to_json
 end
-
-
-
 
 get '/get_stats/:hero' do
   content_type :json

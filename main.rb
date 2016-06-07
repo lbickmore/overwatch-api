@@ -5,7 +5,7 @@ require 'redis'
 
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-$redis = Redis.new(:url => 'redis://52.32.216.63:6379')
+$redis = Redis.new(:password => $redis_pass, :url => 'redis://192.241.220.104')
 
 def battle_net_id(id)
   puts 'Running battle_net_id'
