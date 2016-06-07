@@ -8,26 +8,31 @@ require './main.rb'
 set :port, 8080
 set :environment, :production
 
-get '/get_stats' do
+get '/stats' do
+  return 'Please Specify ID or Hero'
+end
+
+get '/stats/:id' do
   content_type :json
-  bnet_id = battle_net_id(params[:id])
-  if params[:id].nil?
-    return data_dump()
+  if in_database?(params[:id].gsub('-','#'))
+    bnet_id = params[:id].gsub('-','#')
+  else
+    bnet_id = battle_net_id(params[:id])
   end
-  if get_stats(bnet_id).nil?
+  if !in_database?(bnet_id)
     crawl_stats(bnet_id)
   end
   get_stats(bnet_id).to_json
 end
 
-get '/get_stats/:hero' do
+get '/stats/:id/:hero' do
   content_type :json
-  bnet_id = battle_net_id(params[:id])
-  puts bnet_id
-  if params[:id].nil?
-    return 'No User Called'
+  if in_database?(params[:id].gsub('-','#'))
+    bnet_id = params[:id].gsub('-','#')
+  else
+    bnet_id = battle_net_id(params[:id])
   end
-
+  puts bnet_id
   if !in_database?(bnet_id)
     crawl_stats(bnet_id)
   elsif !params[:stat].nil?

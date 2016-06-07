@@ -90,7 +90,8 @@ def get_stats(bnet_id)
   end
 
   # Write to file
-  File.open("#{bnet_id.gsub("#","-")}.csv",'w') do |file|
+  system('mkdir tmp')
+  File.open("tmp/#{bnet_id.gsub("#","-")}.csv",'w') do |file|
     data.each do |category|
       category[1].each do |item|
         file.write("#{category[0]},#{item[0]},#{item[1].gsub(",",'')}")
