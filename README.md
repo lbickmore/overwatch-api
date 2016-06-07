@@ -26,6 +26,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.6] - 2016-06-06
+### Changed
+- server.rb and main.rb account for a server hosting change. When running server.rb a password for the redis server is required.
+
 ## [0.0.5] - 2016-06-03
 ### Added
 - server.rb - sinatra server for http api access.
