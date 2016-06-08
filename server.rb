@@ -8,6 +8,12 @@ require './main.rb'
 set :port, 8080
 set :environment, :production
 
+# 404 Error!
+not_found do
+  status 404
+  return '404!'
+end
+
 get '/stats' do
   return 'Please Specify ID or Hero'
 end
