@@ -1,3 +1,4 @@
+sudo service overwatch-api stop
 sudo rm /etc/systemd/system/overwatch-api.service
 cat << EOF | sudo tee -a /etc/systemd/system/overwatch-api.service > /dev/null
 [Unit]
@@ -16,7 +17,6 @@ Restart=always
 WantedBy=multi-user.target
 EOF
 
-sudo service overwatch-api stop
 sudo rm -Rf /opt/overwatch-api
 sudo cp -a ../overwatch-api /opt/overwatch-api
 sudo adduser --system --group --no-create-home prof-oak
