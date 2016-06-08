@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'httparty'
+gem 'nokogiri'
+gem 'openssl', '>= 0.2.0'
+gem 'redis', '>= 3.3.0'
+gem 'rspec', '>= 3.4.0'
