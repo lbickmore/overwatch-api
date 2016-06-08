@@ -8,8 +8,8 @@ After=network.target
 [Service]
 User=prof-oak
 Group=prof-oak
-WorkingDirectory=/opt/overwatch-api
-ExecStart=/usr/bin/ruby /opt/overwatch-api/server.rb foobared
+WorkingDirectory=/opt/overwatch-api/lib
+ExecStart=/usr/bin/ruby /opt/overwatch-api/lib/server.rb foobared
 ExecStop=/bin/kill -15 $MAINPID
 Restart=always
 
