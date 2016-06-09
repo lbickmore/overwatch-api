@@ -13,7 +13,7 @@ I can't think of anything else you could want from me, if you're still reading t
   * Finally a functional example: `192.241.220.104:8080/stats/BlueShoesYes-1548/Widowmaker?stat=Shots%20Fired`
 
 ## To Do 
- * See [Trello](https://trello.com/b/t9jG9N3F/overwatch-api)?  
+ * See [Trello](https://trello.com/b/t9jG9N3F/overwatch-api)  
 
 ## Completed Features - Periodically Updated from Trello
  * Command line tool to pull data for any user given their user information and system.  
