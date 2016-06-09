@@ -4,11 +4,18 @@ Or maybe the [Style Guide](#style-rules)?
 [Trello board](https://trello.com/b/t9jG9N3F/overwatch-api)?  
 I can't think of anything else you could want from me, if you're still reading this hit me up on [twitter](https://twitter.com/blueshoesyes) I guess <3
 
-## To Do
- * Convert into REST API or something akin to that.
- * Grab player level and add to a player stats key in the players data object
+## Usage
+ * There is a server that is live for testing, the following `GET` requests will work
+  * For PC accounts: `192.241.220.104:8080/stats/<battle_net_id>-<number>` 
+  * For PSN and XBL: `192.241.220.104:8080/stats/<battle_net_id>`
+  * To select specific heroes append `/<hero_name>` to the end
+  * If a hero is specified you may also pass the option `stat=<stat>` if you happen to know the specific stat you wish to return.
+  * Finally a functional example: `192.241.220.104:8080/stats/BlueShoesYes-1548/Widowmaker?stat=Shots%20Fired`
 
-## Completed Features
+## To Do 
+ * See [Trello](https://trello.com/b/t9jG9N3F/overwatch-api)?  
+
+## Completed Features - Periodically Updated from Trello
  * Command line tool to pull data for any user given their user information and system.  
    Ex: `cli.rb pc BlueShoesYes 1548` will return with a csv of all my stats :D
  * system_type no longer required! Input is determined based on lack of battlenet ID #. At the moment this will return the first name that matches Playstation then Xbox. Potential further work required.
@@ -25,6 +32,17 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.0.7] - 2016-06-08
+### Added
+- rspec tests for `battle_net_id` method out of main.rb, more to come.
+- install.sh - includes basic systemd service.
+- Small usage section in README.md
+
+
+### Changed
+- Directories have been created. Code has been moved to `/lib`
+- `battle_net_id` method to check given strings against redis prior to scraping playoverwatch.com blindly.
 
 ## [0.0.6] - 2016-06-06
 ### Changed
