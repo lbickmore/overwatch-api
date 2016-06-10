@@ -48,8 +48,16 @@ describe BattleNetId do
 
   it '.crawl_stats' do
     bnet_id = BattleNetId.new('FakeNameInsertHere- LOL')
-
     expect(bnet_id.crawl_stats).to eq false
+  end
+
+  it '.get_stats' do
+    bnet_id = BattleNetId.new('BlueShoesYes-1548')
+    expect(bnet_id.get_stats).not_to eq nil
+  end
+  it '.get_stats' do
+    bnet_id = BattleNetId.new('BlueShoesYes')
+    expect(bnet_id.get_stats).to eq nil
   end
 end
 

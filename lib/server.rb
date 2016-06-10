@@ -17,22 +17,22 @@ end
 
 get '/stats/:id' do
   content_type :json
-  bnet_id = battle_net_id(params[:id])
-  if !in_database?(bnet_id)
-    crawl_stats(bnet_id)
+  bnet_id = BattleNetId.new(params[:id])
+  if !bnet_id.in_database?
+    bnet_id.crawl_stats
   end
-  get_stats(bnet_id).to_json
+  bnet_id.get_stats.to_json
 end
-
+###
 get '/stats/:id/:hero' do
   content_type :json
-  bnet_id = battle_net_id(params[:id])
+  bnet_id = BattleNetId.new(params[:id])
   puts bnet_id
-  if !in_database?(bnet_id)
-    crawl_stats(bnet_id)
+  if !bnet_id.in_database?
+    bnet_id.crawl_stats
   elsif !params[:stat].nil?
-      return get_stats(bnet_id)[params[:hero]][params[:stat]].to_json
+      return bnet_id.get_stats[params[:hero]][params[:stat]].to_json
   else
-    return get_stats(bnet_id)[params[:hero]].to_json
+    return bnet_id.get_stats[params[:hero]].to_json
   end
 end
