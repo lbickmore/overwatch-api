@@ -2,9 +2,11 @@ require 'httparty'
 require 'nokogiri'
 require 'openssl'
 require 'redis'
+require './helper.rb'
+
 #require config file eventually
 
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+suppress_warnings { OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE }
 
 $redis = Redis.new(:password => 'foobared', :url => "redis://192.241.220.104")
 
